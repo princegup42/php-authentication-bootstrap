@@ -2,12 +2,6 @@
 
 <?php require_once 'includes/navbar.php'; ?>
 
-<?php
-// Demo Purpose - Accessing Our Database Function From objDB
-$objDB = objDB();
-
-?>
-
 <div class="container">
 
     <div class='jumbotron jumbotron-fluid text-center color-set'>
