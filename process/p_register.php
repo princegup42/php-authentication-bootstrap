@@ -50,4 +50,40 @@ if (isset($_POST['register'])) {
     if ($password != $confirm_password || empty($confirm_password)) {
         $errors['confirm_password_err'] = 'Password does not match or empty';
     }
+
+    if (!count($errors) == 0) {
+
+        // Password Hashing
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        // Generate Unique random Reset Code For Verification Purpose.
+        $code = md5(crypt(rand(), 'aa'));
+
+        // Store Them Into DATABASE
+        $stmt = $objDB->prepare(
+            'INSERT INTO users(name, email, username, password, website, created_at, reset_code)
+            VALUES(?, ?, ?, ?, ?, ?, ?)'
+        );
+
+        $stmt->bind_param('sssssis', $name, $email, $username, $password, $website, time(), $code);
+
+        if ($stmt->execute()) {
+            setMsg('msg', 'Your account has been created successfully. Please, check your email to verify.', 'warning');
+        }
+    } else {
+
+        $data = [
+            'name' => $name,
+            'username' => $username,
+            'email' => $email,
+            'website' => $website,
+            'password' => $password,
+            'confirm_password' => $confirm_password,
+        ];
+
+        setMsg('form_data', $data);
+        setMsg('errors', $errors);
+    }
+
+    redirect('register.php');
 }
