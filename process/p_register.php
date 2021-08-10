@@ -51,7 +51,7 @@ if (isset($_POST['register'])) {
         $errors['confirm_password_err'] = 'Password does not match or empty';
     }
 
-    if (!count($errors) == 0) {
+    if (!count($errors)) {
 
         // Password Hashing
         $password = password_hash($password, PASSWORD_DEFAULT);

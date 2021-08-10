@@ -8,7 +8,7 @@ define('DB_PASSWORD', 123456);
 define('DB_NAME', 'auth');
 
 // URL
-define('URLROOT', 'http://localhost/auth');
+define('URLROOT', 'http://localhost/php-authentication-bootstrap');
 
 // APP URL
 define('APPROOT', dirname(__FILE__));
